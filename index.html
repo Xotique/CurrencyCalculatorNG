@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Price Calculator | Naira-Yuan</title>
+    <title>Global Pricing Calculator | China to Nigeria</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
             --secondary: #1e40af;
             --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --glass: rgba(255, 255, 255, 0.95);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         * {
@@ -28,21 +31,30 @@
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--glass);
             backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
             width: 100%;
             max-width: 600px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: var(--border);
         }
 
         h1 {
             color: var(--primary);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        h1 small {
+            display: block;
+            font-size: 1rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+            font-weight: 400;
         }
 
         .input-grid {
@@ -64,13 +76,20 @@
             font-size: 0.875rem;
         }
 
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
         input {
             width: 100%;
             padding: 0.75rem;
             border: 2px solid #e2e8f0;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            padding-right: 2.5rem; /* Space for currency symbol */
         }
 
         input:focus {
@@ -82,9 +101,10 @@
         .currency-symbol {
             position: absolute;
             right: 12px;
-            bottom: 12px;
             color: #64748b;
             font-weight: 500;
+            pointer-events: none;
+            font-size: 0.9rem;
         }
 
         button {
@@ -93,7 +113,7 @@
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -108,7 +128,7 @@
             margin-top: 2rem;
             padding: 1.5rem;
             background: rgba(241, 245, 249, 0.5);
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
         }
 
         .result-item {
@@ -129,36 +149,48 @@
         .result-value {
             color: #1e293b;
             font-weight: 600;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Global Price Calculator 🇨🇳 ➔ 🇳🇬</h1>
+        <h1>Global Pricing Calculator
+            <small>China → Nigeria Import Pricing</small>
+        </h1>
         
         <div class="input-grid">
             <div class="input-group">
                 <label for="exchangeRate">Exchange Rate (¥1 to ₦)</label>
-                <input type="number" step="0.01" id="exchangeRate" placeholder="Enter rate">
-                <span class="currency-symbol">¥→₦</span>
+                <div class="input-wrapper">
+                    <input type="number" step="0.01" id="exchangeRate" placeholder="Enter rate">
+                    <span class="currency-symbol">¥→₦</span>
+                </div>
             </div>
 
             <div class="input-group">
                 <label for="productCost">Product Cost</label>
-                <input type="number" step="0.01" id="productCost" placeholder="Enter cost">
-                <span class="currency-symbol">¥</span>
+                <div class="input-wrapper">
+                    <input type="number" step="0.01" id="productCost" placeholder="Enter cost">
+                    <span class="currency-symbol">¥</span>
+                </div>
             </div>
 
             <div class="input-group">
                 <label for="shippingFee">Shipping Fee</label>
-                <input type="number" step="0.01" id="shippingFee" placeholder="Enter fee">
-                <span class="currency-symbol">¥</span>
+                <div class="input-wrapper">
+                    <input type="number" step="0.01" id="shippingFee" placeholder="Enter fee">
+                    <span class="currency-symbol">¥</span>
+                </div>
             </div>
 
             <div class="input-group">
                 <label for="profitPercentage">Profit Margin</label>
-                <input type="number" step="0.01" id="profitPercentage" placeholder="Enter percentage">
-                <span class="currency-symbol">%</span>
+                <div class="input-wrapper">
+                    <input type="number" step="0.01" id="profitPercentage" placeholder="Enter percentage">
+                    <span class="currency-symbol">%</span>
+                </div>
             </div>
         </div>
 
@@ -166,12 +198,12 @@
 
         <div class="results">
             <div class="result-item">
-                <span class="result-label">Total Cost (₦):</span>
-                <span class="result-value" id="totalCost">0.00</span>
+                <span class="result-label">Total Cost:</span>
+                <span class="result-value" id="totalCost">₦0.00</span>
             </div>
             <div class="result-item">
-                <span class="result-label">Selling Price (₦):</span>
-                <span class="result-value" id="sellingPrice">0.00</span>
+                <span class="result-label">Selling Price:</span>
+                <span class="result-value" id="sellingPrice">₦0.00</span>
             </div>
         </div>
     </div>
@@ -193,9 +225,16 @@
             // Calculate selling price with profit
             const sellingPrice = totalCostNaira * (1 + (profitPercentage / 100));
 
-            // Display results
-            document.getElementById('totalCost').textContent = totalCostNaira.toFixed(2);
-            document.getElementById('sellingPrice').textContent = sellingPrice.toFixed(2);
+            // Format numbers with commas and currency symbols
+            document.getElementById('totalCost').textContent = formatNumber(totalCostNaira);
+            document.getElementById('sellingPrice').textContent = formatNumber(sellingPrice);
+        }
+
+        function formatNumber(num) {
+            return '₦' + num.toLocaleString('en-NG', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
         }
     </script>
 </body>
