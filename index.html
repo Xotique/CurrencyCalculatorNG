@@ -80,9 +80,8 @@
     /* Dark mode toggle button inside container */
     .dark-mode-btn {
       position: absolute;
-      top: 0;
-      right: 0;
-      margin: 1rem;
+      top: 1rem;
+      right: 1rem;
       padding: 0.5rem 1rem;
       background: var(--primary);
       color: #fff;
@@ -152,6 +151,7 @@
       font-weight: 500;
       pointer-events: none;
       font-size: 0.9rem;
+      transition: color 0.3s ease;
     }
 
     .btn-group {
@@ -222,6 +222,13 @@
     body.dark-mode .instruction {
       color: #cfd8dc;
     }
+    body.dark-mode .currency-symbol {
+      color: #e0e0e0;
+    }
+    /* In dark mode, update the floating currency icons to use a lighter color */
+    body.dark-mode .animation-container .currency {
+      color: rgba(255, 255, 255, 0.3);
+    }
 
     /* Animation container for flying currencies */
     .animation-container {
@@ -241,6 +248,8 @@
       font-size: 2rem;
       opacity: 0.2;
       animation: fly linear infinite;
+      /* Default color for light mode */
+      color: #000;
     }
 
     /* Define the flying animation */
