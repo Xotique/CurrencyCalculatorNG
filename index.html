@@ -16,6 +16,7 @@
       --glass: rgba(255, 255, 255, 0.95);
       --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       --border: 1px solid rgba(255, 255, 255, 0.3);
+      --text: #1e293b;
     }
 
     /* Dark mode variables */
@@ -24,6 +25,7 @@
       --glass: rgba(40, 40, 40, 0.95);
       --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       --border: 1px solid rgba(255, 255, 255, 0.1);
+      --text: #ffffff;
       background: var(--background);
     }
 
@@ -40,13 +42,14 @@
       position: relative;
       overflow: hidden;
       transition: background 0.3s ease;
+      color: var(--text);
     }
 
     .container {
       background: var(--glass);
       backdrop-filter: blur(10px);
       border-radius: 1.5rem;
-      padding: 2.5rem 2rem 2.5rem 2rem;
+      padding: 2rem;
       box-shadow: var(--shadow);
       width: 100%;
       max-width: 600px;
@@ -77,7 +80,7 @@
       font-weight: 400;
     }
 
-    /* Dark mode toggle button inside container */
+    /* Dark mode toggle button */
     .dark-mode-btn {
       position: absolute;
       top: 1rem;
@@ -95,18 +98,12 @@
       background: var(--secondary);
     }
 
-    .instruction {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-      color: #475569;
-    }
-
+    /* Mobile-friendly input grid */
     .input-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     .input-group {
@@ -116,7 +113,7 @@
     label {
       display: block;
       margin-bottom: 0.5rem;
-      color: #1e293b;
+      color: var(--text);
       font-weight: 500;
       font-size: 0.875rem;
       transition: color 0.3s ease;
@@ -131,11 +128,13 @@
     input {
       width: 100%;
       padding: 0.75rem;
-      padding-right: 2.5rem; /* Space for currency symbol */
+      padding-right: 2.5rem;
       border: 2px solid #e2e8f0;
       border-radius: 0.75rem;
       font-size: 1rem;
       transition: all 0.3s ease;
+      background: var(--glass);
+      color: var(--text);
     }
 
     input:focus {
@@ -154,10 +153,12 @@
       transition: color 0.3s ease;
     }
 
+    /* Mobile-friendly buttons */
     .btn-group {
       display: flex;
       gap: 1rem;
       margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
 
     button {
@@ -171,14 +172,16 @@
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s ease;
+      min-width: 120px;
     }
 
     button:hover {
       background: var(--secondary);
     }
 
+    /* Results section */
     .results {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       padding: 1.5rem;
       background: rgba(241, 245, 249, 0.5);
       border-radius: 0.75rem;
@@ -195,42 +198,18 @@
     }
 
     .result-label {
-      color: #475569;
+      color: #64748b;
       font-weight: 500;
     }
 
     .result-value {
-      color: #1e293b;
+      color: var(--text);
       font-weight: 600;
       font-family: 'Courier New', Courier, monospace;
       letter-spacing: 0.5px;
     }
 
-    /* Dark mode adjustments */
-    body.dark-mode .header h1 {
-      color: #90caf9;
-    }
-    body.dark-mode label {
-      color: #e0e0e0;
-    }
-    body.dark-mode .result-label {
-      color: #b0bec5;
-    }
-    body.dark-mode .result-value {
-      color: #ffffff;
-    }
-    body.dark-mode .instruction {
-      color: #cfd8dc;
-    }
-    body.dark-mode .currency-symbol {
-      color: #e0e0e0;
-    }
-    /* In dark mode, update the floating currency icons to use a lighter color */
-    body.dark-mode .animation-container .currency {
-      color: rgba(255, 255, 255, 0.3);
-    }
-
-    /* Animation container for flying currencies */
+    /* Floating currency animations */
     .animation-container {
       position: fixed;
       top: 0;
@@ -245,53 +224,59 @@
     .animation-container .currency {
       position: absolute;
       top: 100%;
-      font-size: 2rem;
-      opacity: 0.2;
+      font-size: 1.5rem;
+      opacity: 0.1;
       animation: fly linear infinite;
-      /* Default color for light mode */
-      color: #000;
+      color: var(--text);
     }
 
-    /* Define the flying animation */
     @keyframes fly {
       0% {
         transform: translateY(0) rotate(0deg);
-        opacity: 0.2;
+        opacity: 0.1;
       }
       100% {
         transform: translateY(-110vh) rotate(360deg);
-        opacity: 0.2;
+        opacity: 0.1;
+      }
+    }
+
+    /* Mobile-specific adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      .header small {
+        font-size: 0.9rem;
+      }
+      .btn-group {
+        flex-direction: column;
+      }
+      button {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Animation container with floating currency symbols -->
+  <!-- Floating currency animations -->
   <div class="animation-container">
-    <!-- Yuan symbols -->
-    <span class="currency" style="left: 10%; animation-duration: 18s; animation-delay: 0s; font-size: 1.5rem;">¥</span>
-    <span class="currency" style="left: 80%; animation-duration: 22s; animation-delay: 2s; font-size: 2rem;">¥</span>
-    <span class="currency" style="left: 50%; animation-duration: 20s; animation-delay: 4s; font-size: 1.2rem;">¥</span>
-    <span class="currency" style="left: 30%; animation-duration: 25s; animation-delay: 6s; font-size: 1.8rem;">¥</span>
-
-    <!-- Naira symbols -->
-    <span class="currency" style="left: 20%; animation-duration: 19s; animation-delay: 1s; font-size: 1.5rem;">₦</span>
-    <span class="currency" style="left: 70%; animation-duration: 21s; animation-delay: 3s; font-size: 2rem;">₦</span>
-    <span class="currency" style="left: 40%; animation-duration: 23s; animation-delay: 5s; font-size: 1.2rem;">₦</span>
-    <span class="currency" style="left: 60%; animation-duration: 24s; animation-delay: 7s; font-size: 1.8rem;">₦</span>
+    <span class="currency" style="left: 10%; animation-duration: 18s; animation-delay: 0s;">¥</span>
+    <span class="currency" style="left: 80%; animation-duration: 22s; animation-delay: 2s;">₦</span>
+    <span class="currency" style="left: 50%; animation-duration: 20s; animation-delay: 4s;">¥</span>
+    <span class="currency" style="left: 30%; animation-duration: 25s; animation-delay: 6s;">₦</span>
   </div>
 
   <div class="container">
-    <!-- Dark Mode Button inside container -->
-    <button class="dark-mode-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-btn" onclick="toggleDarkMode()">🌓</button>
     
     <div class="header">
       <h1>Global Pricing Calculator</h1>
       <small>China → Nigeria Import Pricing</small>
-    </div>
-    
-    <div class="instruction">
-      Enter the exchange rate, product cost, shipping fee, and desired profit margin then click "Calculate" to see your results.
     </div>
     
     <div class="input-grid">
@@ -329,8 +314,10 @@
     </div>
 
     <div class="btn-group">
-      <button onclick="calculatePrice()">Calculate Selling Price</button>
+      <button onclick="calculatePrice()">Calculate</button>
       <button onclick="resetFields()" style="background: #ef4444;">Reset</button>
+      <button onclick="saveData()" style="background: #10b981;">Save</button>
+      <button onclick="loadData()" style="background: #f59e0b;">Load</button>
     </div>
 
     <div class="results">
@@ -342,41 +329,37 @@
         <span class="result-label">Selling Price:</span>
         <span class="result-value" id="sellingPrice">₦0.00</span>
       </div>
+      <button onclick="copyResults()" style="width: 100%; margin-top: 1rem;">Copy Results</button>
     </div>
   </div>
 
   <script>
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    // Calculate Pricing
     function calculatePrice() {
-      // Get input values
       const exchangeRate = parseFloat(document.getElementById("exchangeRate").value) || 0;
       const productCost = parseFloat(document.getElementById("productCost").value) || 0;
       const shippingFee = parseFloat(document.getElementById("shippingFee").value) || 0;
       const profitPercentage = parseFloat(document.getElementById("profitPercentage").value) || 0;
 
-      // Calculate total cost in Yuan
       const totalCostYuan = productCost + shippingFee;
-      
-      // Convert to Naira
       const totalCostNaira = totalCostYuan * exchangeRate;
-      
-      // Calculate selling price with profit
       const sellingPrice = totalCostNaira * (1 + profitPercentage / 100);
 
-      // Format and display numbers with commas and currency symbols
       document.getElementById("totalCost").textContent = formatNumber(totalCostNaira);
       document.getElementById("sellingPrice").textContent = formatNumber(sellingPrice);
     }
 
+    // Format Numbers
     function formatNumber(num) {
-      return (
-        "₦" +
-        num.toLocaleString("en-NG", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })
-      );
+      return "₦" + num.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    // Reset Fields
     function resetFields() {
       document.getElementById("exchangeRate").value = "";
       document.getElementById("productCost").value = "";
@@ -386,8 +369,38 @@
       document.getElementById("sellingPrice").textContent = "₦0.00";
     }
 
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
+    // Save Data to Local Storage
+    function saveData() {
+      const data = {
+        exchangeRate: document.getElementById("exchangeRate").value,
+        productCost: document.getElementById("productCost").value,
+        shippingFee: document.getElementById("shippingFee").value,
+        profitPercentage: document.getElementById("profitPercentage").value,
+      };
+      localStorage.setItem("pricingData", JSON.stringify(data));
+      alert("Data saved successfully!");
+    }
+
+    // Load Data from Local Storage
+    function loadData() {
+      const data = JSON.parse(localStorage.getItem("pricingData"));
+      if (data) {
+        document.getElementById("exchangeRate").value = data.exchangeRate;
+        document.getElementById("productCost").value = data.productCost;
+        document.getElementById("shippingFee").value = data.shippingFee;
+        document.getElementById("profitPercentage").value = data.profitPercentage;
+        alert("Data loaded successfully!");
+      } else {
+        alert("No saved data found!");
+      }
+    }
+
+    // Copy Results to Clipboard
+    function copyResults() {
+      const totalCost = document.getElementById("totalCost").textContent;
+      const sellingPrice = document.getElementById("sellingPrice").textContent;
+      const text = `Total Cost: ${totalCost}\nSelling Price: ${sellingPrice}`;
+      navigator.clipboard.writeText(text).then(() => alert("Results copied to clipboard!"));
     }
   </script>
 </body>
