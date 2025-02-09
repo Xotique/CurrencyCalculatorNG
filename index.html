@@ -21,11 +21,11 @@
 
     /* Dark mode variables */
     body.dark-mode {
-      --background: #121212;
-      --glass: rgba(40, 40, 40, 0.95);
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --background: linear-gradient(135deg, #0f0f0f 0%, #1c1c1c 100%);
+      --glass: rgba(30, 30, 30, 0.85);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
       --border: 1px solid rgba(255, 255, 255, 0.1);
-      --text: #ffffff;
+      --text: #f0f0f0;
       background: var(--background);
     }
 
@@ -270,6 +270,10 @@
       }
       .currency-symbol {
         right: 8px;
+      }
+      .dark-mode-btn {
+        top: 0.5rem;
+        right: 0.5rem;
       }
     }
 
