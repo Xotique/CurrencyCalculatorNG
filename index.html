@@ -245,6 +245,7 @@
     @media (max-width: 480px) {
       .container {
         padding: 1.5rem;
+        width: 90%;
       }
       .header h1 {
         font-size: 1.5rem;
@@ -258,6 +259,38 @@
       button {
         width: 100%;
       }
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+      .input-wrapper input {
+        padding-right: 1.5rem;
+      }
+      .currency-symbol {
+        right: 8px;
+      }
+    }
+
+    /* Tablet-specific adjustments */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .container {
+        padding: 2rem;
+        width: 80%;
+      }
+      .header h1 {
+        font-size: 1.6rem;
+      }
+      .header small {
+        font-size: 0.95rem;
+      }
+      .input-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+
+    .error {
+      color: red;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
@@ -331,6 +364,7 @@
       </div>
       <button onclick="copyResults()" style="width: 100%; margin-top: 1rem;">Copy Results</button>
     </div>
+    <div id="error-message" class="error"></div>
   </div>
 
   <script>
@@ -345,6 +379,13 @@
       const productCost = parseFloat(document.getElementById("productCost").value) || 0;
       const shippingFee = parseFloat(document.getElementById("shippingFee").value) || 0;
       const profitPercentage = parseFloat(document.getElementById("profitPercentage").value) || 0;
+
+      if (exchangeRate <= 0 || productCost <= 0 || shippingFee < 0 || profitPercentage < 0) {
+        document.getElementById("error-message").textContent = "Please enter valid values.";
+        return;
+      } else {
+        document.getElementById("error-message").textContent = "";
+      }
 
       const totalCostYuan = productCost + shippingFee;
       const totalCostNaira = totalCostYuan * exchangeRate;
